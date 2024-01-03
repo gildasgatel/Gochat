@@ -7,6 +7,7 @@ func Routes(h Handler) *gin.Engine {
 	router.LoadHTMLGlob("templates/*")
 
 	router.GET("/", h.Home)
+	router.GET("/ws", h.WS)
 
 	return router
 }
