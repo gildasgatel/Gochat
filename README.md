@@ -2,6 +2,8 @@
 
 GoChat est une application de chat simple en utilisant Go avec le framework Gin et les WebSockets pour permettre à plusieurs clients d'échanger des messages en temps réel.
 
+![This is an image](https://github.com/gildasgatel/Gochat/blob/master/gochat.png)
+
 ## Démarrage du serveur
 
 1. Exécutez `go run ./cmd/server` pour démarrer le serveur.
