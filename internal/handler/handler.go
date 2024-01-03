@@ -3,15 +3,20 @@ package handler
 import (
 	"log"
 	"net/http"
+	"sync"
 
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
 )
 
-var upgrader = websocket.Upgrader{
-	ReadBufferSize:  1024,
-	WriteBufferSize: 1024,
-}
+var (
+	upgrader = websocket.Upgrader{
+		ReadBufferSize:  1024,
+		WriteBufferSize: 1024,
+	}
+	clients   = make(map[*websocket.Conn]bool)
+	clientsMu sync.Mutex
+)
 
 type Handler interface {
 	Home(c *gin.Context)
@@ -40,17 +45,31 @@ func handleWebSocket(w http.ResponseWriter, r *http.Request) {
 	}
 	defer conn.Close()
 
+	clientsMu.Lock()
+	clients[conn] = true
+	clientsMu.Unlock()
+
 	for {
 		_, msg, err := conn.ReadMessage()
 		if err != nil {
 			log.Println(err)
-			return
+			break
 		}
 
-		err = conn.WriteMessage(websocket.TextMessage, msg)
+		broadcastMessage(msg)
+	}
+}
+
+func broadcastMessage(msg []byte) {
+	clientsMu.Lock()
+	defer clientsMu.Unlock()
+
+	for client := range clients {
+		err := client.WriteMessage(websocket.TextMessage, msg)
 		if err != nil {
 			log.Println(err)
-			return
+			client.Close()
+			delete(clients, client)
 		}
 	}
 }
