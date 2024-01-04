@@ -21,10 +21,6 @@ GoChat est une application de chat simple en utilisant Go avec le framework Gin 
 - Les clients peuvent écrire des messages dans le chat en même temps.
 - Les messages sont échangés en temps réel à tous les clients connectés.
 
-## Contributions
-
-Les contributions sont les bienvenues ! Si vous souhaitez contribuer, ouvrez une pull request et nous examinerons vos changements.
-
 ## Licence
 
 Ce projet est sous licence [Nom de la Licence]. Consultez le fichier LICENSE pour plus de détails.
