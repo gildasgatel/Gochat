@@ -23,4 +23,4 @@ GoChat est une application de chat simple en utilisant Go avec le framework Gin 
 
 ## Licence
 
-Ce projet est sous licence [Nom de la Licence]. Consultez le fichier LICENSE pour plus de détails.
+Ce projet est sous licence MIT. Consultez le fichier LICENSE pour plus de détails.
